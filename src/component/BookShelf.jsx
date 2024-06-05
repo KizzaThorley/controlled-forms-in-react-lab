@@ -40,18 +40,14 @@ const BookShelf = () => {
         setBooks([])
     }
 
-    function deleteBook(e) {
+    function deleteBook(idx) {
 
         const currentBookList = structuredClone(books)
        
        
-        const filteredBooks = currentBookList.filter((book) => {
-            if (book.title !== e.target.value) {
-                return book
-            } 
-        })
+       currentBookList.splice(idx, 1)
       
-        setBooks(filteredBooks)
+        setBooks(currentBookList)
 
 
     }
@@ -79,7 +75,7 @@ const BookShelf = () => {
         </div>
         <button onClick={clearBookList}>Clear Book List</button>
         <div className="bookCardsDiv">{books.map((book, idx) => {
-            return <div className="bookCard" key={idx}>title: {book.title} author: {book.author} <button onClick={deleteBook} value={book.title}>Delete Book</button></div>
+            return <div className="bookCard" key={idx}>title: {book.title} author: {book.author} <button onClick={() => deleteBook(idx)} >Delete Book</button></div>
         })}</div>
     </div>
 
