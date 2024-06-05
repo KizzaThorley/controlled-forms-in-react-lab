@@ -12,7 +12,7 @@ const BookShelf = () => {
         author: ''
     }
     )
-    console.log(newBook);
+
 
     function handleInputChange(e) {
         const newCurrentBook = structuredClone(newBook)
@@ -35,7 +35,26 @@ const BookShelf = () => {
             author: '',
         })
     }
-   
+
+    function clearBookList() {
+        setBooks([])
+    }
+
+    function deleteBook(e) {
+
+        const currentBookList = structuredClone(books)
+       
+       
+        const filteredBooks = currentBookList.filter((book) => {
+            if (book.title !== e.target.value) {
+                return book
+            } 
+        })
+      
+        setBooks(filteredBooks)
+
+
+    }
 
 
     return <div className="bookshelfDiv">
@@ -58,8 +77,9 @@ const BookShelf = () => {
                 <button type='submit'>Add Book</button>
             </form>
         </div>
-        <div className="bookCardsDiv">{books.map((book, idx) => { 
-            return <div className="bookCard" key={idx}>title: {book.title} author: {book.author}</div>
+        <button onClick={clearBookList}>Clear Book List</button>
+        <div className="bookCardsDiv">{books.map((book, idx) => {
+            return <div className="bookCard" key={idx}>title: {book.title} author: {book.author} <button onClick={deleteBook} value={book.title}>Delete Book</button></div>
         })}</div>
     </div>
 
